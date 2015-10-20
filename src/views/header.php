@@ -1,7 +1,7 @@
 <header>
 	<div class="container clearfix">
 		<!-- логотип -->
-		<a href="#" class="logo">Yellow Duck</a>
+		<a href="#" class="logo">Grand Yellow Duck</a>
 		<!-- меню -->
 		<nav>
 			<ul>

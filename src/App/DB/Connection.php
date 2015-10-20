@@ -11,6 +11,11 @@ class Connection
     $this->connection = $this->connect('root', '');
   }
 
+  public function getConnection()
+  {
+    return $this->connection;
+  }
+
   private function connect($username, $password)
   {
     try {

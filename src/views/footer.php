@@ -3,3 +3,4 @@
 		<p> © Epic Skills</p>
 	</div>
 </footer>
+</body>

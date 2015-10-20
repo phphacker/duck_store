@@ -3,10 +3,10 @@
 include_once __DIR__ . '/../src/autoload.php' ;
 
 use App\DB;
-use App\Controller;
 
 $connection = new DB\Connection();
 $productRepository = new DB\ProductRepository($connection);
+$catalogRepository = new DB\CatalogRepository($connection);
 
 $page = 'main';
 if (isset($_GET['page'])) {
@@ -15,12 +15,12 @@ if (isset($_GET['page'])) {
 
 switch ($page) {
 	case 'main':
-		$page = new Main($productRepository);
+		$page = new \App\Controller\Main($productRepository);
 		$page->page();
 		break;
 	case 'catalog':
-		$page = new Catalog($productRepository);
-		$page->page();
+		$page = new \App\Controller\Catalog($catalogRepository);
+		$page->page($_GET['id']);
 		break;
 	case 'product':
 		include_once __DIR__ . '/../src/product.php';
