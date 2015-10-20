@@ -1,4 +1,9 @@
 <?php
+
+include_once __DIR__ . '/../src/autoload.php'
+
+
+
 include_once 'views/head.php';
 include_once 'views/header.php';
 ?>
