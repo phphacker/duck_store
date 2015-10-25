@@ -1,3 +1,21 @@
+<?php
+
+$cartItems = [];
+if (isset($_COOKIE['products'])) {
+	$cartItems = $_COOKIE['products'];
+}
+
+$result = 0;
+
+if (!empty($cartItems)) {
+	foreach ($cartItems as $value) {
+		$result += $value;
+	}
+}
+
+$text = sprintf('%d товаров в корзине', $result);
+
+?>
 <header>
 	<div class="container clearfix">
 		<!-- логотип -->
@@ -11,5 +29,8 @@
 				<li><a href="">Контакты</a></li>
 			</ul>
 		</nav>
+		<div style="color: #fff;">
+			<?= $text; ?>
+		</div>
 	</div>
 </header>
