@@ -1,7 +1,13 @@
 <?php
 
+use App\DB;
+
 // web/index.php
 require_once __DIR__.'/../vendor/autoload.php';
+//include_once __DIR__ . '/../src/autoload.php' ;
+
+require_once __DIR__.'/../src/App/DB/ProductRepository.php';
+
 
 $app = new Silex\Application();
 $app['debug'] = true;
@@ -21,11 +27,13 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     ),
 ));
 
+
 $app->get('/', function () use ($app) {
 
     $sql = "SELECT * FROM `products` LIMIT 6";
 
     $stmt = $app['db']->prepare($sql);
+
     $stmt->execute();
 
     $products = $stmt->fetchAll();
@@ -35,10 +43,8 @@ $app->get('/', function () use ($app) {
 
 $app->get('/product/{id}', function ($id) use ($app) {
 
-$sql = 'SELECT * FROM `products` as p where p.id=:id';
-$stmt = $app['db']->executeQuery($sql, ['id' => $id]);
-
-$product = $stmt->fetch();
+$productRepository = new DB\ProductRepository($app['db']);
+$product = $productRepository->getProduct($id);
 
 return $app['twig']->render('product.twig', ['product' => $product]);
 

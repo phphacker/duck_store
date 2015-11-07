@@ -6,9 +6,9 @@ class ProductRepository
 {
   private $connection;
 
-  public function __construct(Connection $connection)
+  public function __construct($conn)
   {
-    $this->connection = $connection->getConnection();
+    $this->connection = $conn;
   }
 
   public function getProducts()
@@ -21,17 +21,13 @@ class ProductRepository
 
   function getProduct($id)
   {
-      $stmt = $this->connection->prepare(
-          "SELECT p.id, p.title, p.description, p.price, c.title AS c_title
-              FROM `products` AS p
-              INNER JOIN `categories` AS c
-                  ON p.`category_id` = c.`id`
-              WHERE p.`id` = :id"
-      );
-      $stmt->bindParam(":id", $id);
-      $stmt->execute();
+    if (isset($connection))
+    {
+    $sql = 'SELECT * FROM `products` as p where p.id=:id';
+    $stmt = $connection->executeQuery($sql, ['id' => $id]);
 
-      return $stmt->fetch(\PDO::FETCH_ASSOC);
+    $product = $stmt->fetch();
+    }
   }
 
 }
