@@ -13,21 +13,20 @@ class ProductRepository
 
   public function getProducts()
   {
-      $stmt = $this->connection->prepare("SELECT * FROM `products` LIMIT 6");
-      $stmt->execute();
+    $sql = "SELECT * FROM `products` LIMIT 6";
+    $stmt = $this->connection->prepare($sql);
+    $stmt->execute();
+    $products = $stmt->fetchAll();
 
-      return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $products;
   }
 
   function getProduct($id)
   {
-    if (isset($connection))
-    {
     $sql = 'SELECT * FROM `products` as p where p.id=:id';
-    $stmt = $connection->executeQuery($sql, ['id' => $id]);
-
+    $stmt = $this->connection->executeQuery($sql, ['id' => $id]);
     $product = $stmt->fetch();
-    }
-  }
 
+    return $product;
+  }
 }

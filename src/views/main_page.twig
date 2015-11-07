@@ -1,6 +1,17 @@
 {% extends 'layout.twig' %}
 
-{% block content  %}
+{% block catalog  %}
+{% for category in categories %}
+<li>
+  <a href="{{ path('show_catalog', {id: category['id']}) }}" class="item">
+    {{ category['title'] }}
+  </a>
+</li>
+{% endfor%}
+{% endblock catalog %}
+
+
+{% block products  %}
 <div class="catalog">
   <div class="row clearfix">
   <!-- элементы каталога -->
@@ -14,4 +25,4 @@
   {% endfor%}
   </div>
 </div>
-{% endblock content %}
+{% endblock products %}

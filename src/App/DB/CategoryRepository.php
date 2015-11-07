@@ -6,31 +6,32 @@ class CategoryRepository
 {
   private $connection;
 
-  public function __construct(Connection $connection)
+  public function __construct($conn)
   {
-    $this->connection = $connection;
+    $this->connection = $conn;
   }
 
   public function getCategories()
   {
-    $stmt = $this->connection->prepare("SELECT * FROM `categories`");
+    $sql = "SELECT * FROM `categories` LIMIT 6";
+    $stmt = $this->connection->prepare($sql);
     $stmt->execute();
+    $categories = $stmt->fetchAll();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $categories;
   }
 
-  function getProduct($db, $id)
+  function getProductsInCategory($category_id)
   {
-      $stmt = $db->prepare(
-          "SELECT p.id, p.title, p.description, p.price, c.title AS c_title
+      $sql = "SELECT p.id, p.title, p.description, p.price, c.title AS c_title
               FROM `products` AS p
               INNER JOIN `categories` AS c
                   ON p.`category_id` = c.`id`
-              WHERE p.`id` = :id"
-      );
-      $stmt->bindParam(":id", $id);
-      $stmt->execute();
+              WHERE c.`id` = :id";
 
-      return $stmt->fetch(PDO::FETCH_ASSOC);
+      $stmt = $this->connection->executeQuery($sql, ['id' => $category_id]);
+      $products = $stmt->fetch();
+
+      return $products;
   }
 }

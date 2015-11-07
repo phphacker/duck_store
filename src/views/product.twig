@@ -1,17 +1,39 @@
 {% extends 'layout.twig' %}
 
 {% block content  %}
-<div class="catalog">
-  <div class="row clearfix">
-  <!-- элементы каталога -->
-  {% for product in products %}
-  <div class="item-block column column4">
-    <a href="{{ path('show_product', {id: product['id']}) }}" class="item">
+
+
+
+<div class=" row clearfix item-heading">
+  <!-- название товара -->
+  <h1 class="item-name column column6">Мини-утка брелок</h1>
+  <!-- цена -->
+  <p class="price column column6">99 P</p>
+</div>
+<div class="row clearfix">
+  <div class="column column6">
+    <!-- галерея картинок -->
+    <div class="item-gallery">
       <img src="img/item.jpeg" alt="уточка">
-    </a>
-    <a href="" class="btn-basket">В Корзину</a>
+      <div class="small-images">
+        <img src="img/item.jpeg" alt="уточка">
+        <img src="img/item.jpeg" alt="уточка">
+        <img src="img/item.jpeg" alt="уточка">
+      </div>
+    </div>
   </div>
-  {% endfor%}
+  <div class="column column6">
+  <!-- описание -->
+    <p class="item-description">
+    <span class="grey-bold">Резиновая уточка</span> — игрушка в виде утки, как правило, жёлтого цвета. Она может быть сделана из резины или из пенопласта. Жёлтая резиновая уточка стала ассоциироваться с купаньем.
+    </p>
+    <!-- цена -->
+    <p class="price">99 P</p>
+    <div class="order-btns">
+      <a href="" class="btn-basket">В Корзину</a>
+      <a href="" class="btn-click">Купить в 1 клик</a>
+    </div>
   </div>
 </div>
+
 {% endblock content %}

@@ -7,6 +7,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 //include_once __DIR__ . '/../src/autoload.php' ;
 
 require_once __DIR__.'/../src/App/DB/ProductRepository.php';
+require_once __DIR__.'/../src/App/DB/CategoryRepository.php';
 
 
 $app = new Silex\Application();
@@ -28,31 +29,28 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 ));
 
 
-$app->get('/', function () use ($app) {
+$productRepository = new DB\ProductRepository($app['db']);
+$categoryRepository = new DB\CategoryRepository($app['db']);
 
-    $sql = "SELECT * FROM `products` LIMIT 6";
+$app->get('/', function () use ($app, $productRepository, $categoryRepository) {
 
-    $stmt = $app['db']->prepare($sql);
-
-    $stmt->execute();
-
-    $products = $stmt->fetchAll();
-
-    return $app['twig']->render('main_page.twig', ['products' => $products]);
+  $products = $productRepository->getProducts();
+  $categories = $categoryRepository->getCategories();
+  return $app['twig']->render('main_page.twig', ['products' => $products, 'categories' => $categories]);
 });
 
-$app->get('/product/{id}', function ($id) use ($app) {
+$app->get('/product/{id}', function ($id) use ($app, $productRepository) {
 
-$productRepository = new DB\ProductRepository($app['db']);
-$product = $productRepository->getProduct($id);
-
-return $app['twig']->render('product.twig', ['product' => $product]);
+  $product = $productRepository->getProduct($id);
+  return $app['twig']->render('product.twig', ['product' => $product]);
 
 })->bind('show_product');
 
 
-$app->get('/hello/{name}', function ($name) use ($app) {
-    return 'Hello '.$app->escape($name);
-});
+$app->get('/catalog/{id}', function ($id) use ($app, $productRepository) {
+
+  $products = $productRepository->getProductsInCategory();
+  return $app['twig']->render('catalog.twig', ['category_products' => $category_products]);
+})->bind('show_catalog');
 
 $app->run();
