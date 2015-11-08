@@ -4,5 +4,12 @@
         "twig/twig": "^1.22",
         "doctrine/dbal": "~2.2",
         "symfony/twig-bridge": "^2.7"
+    },
+    "autoload": {
+        "psr-0": {
+            "App\\": "src/",
+            "Vendor\\Namespace\\": ""
+        }
     }
+
 }

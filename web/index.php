@@ -4,7 +4,6 @@ use App\DB;
 
 // web/index.php
 require_once __DIR__.'/../vendor/autoload.php';
-//require_once __DIR__ . '/../src/autoload.php' ;
 
 require_once __DIR__.'/../src/App/DB/ProductRepository.php';
 require_once __DIR__.'/../src/App/DB/CategoryRepository.php';
