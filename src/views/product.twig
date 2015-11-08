@@ -1,34 +1,49 @@
 {% extends 'layout.twig' %}
 
+{% block catalog  %}
+{% for category in categories %}
+<li>
+  <a href="{{ path('show_catalog', {id: category['id']}) }}" class="item">
+    {{ category['title'] }}
+  </a>
+</li>
+{% endfor%}
+{% endblock catalog %}
+
 {% block content  %}
 
-
+<!-- хлебные крошки -->
+<div class="breadcrumbs">
+  <a href="{{ path('show_main')}}">Магазин</a>
+  <p>{{ category.title }}</p>
+</div>
+<div class="row clearfix">
 
 <div class=" row clearfix item-heading">
   <!-- название товара -->
-  <h1 class="item-name column column6">Мини-утка брелок</h1>
+  <h1 class="item-name column column6">{{ product.title }}</h1>
   <!-- цена -->
-  <p class="price column column6">99 P</p>
+  <p class="price column column6">{{ product.price }} P</p>
 </div>
 <div class="row clearfix">
   <div class="column column6">
     <!-- галерея картинок -->
     <div class="item-gallery">
-      <img src="img/item.jpeg" alt="уточка">
+      <img src="../../img/item.jpeg" alt="уточка">
       <div class="small-images">
-        <img src="img/item.jpeg" alt="уточка">
-        <img src="img/item.jpeg" alt="уточка">
-        <img src="img/item.jpeg" alt="уточка">
+        <img src="../../img/item.jpeg" alt="уточка">
+        <img src="../../img/item.jpeg" alt="уточка">
+        <img src="../../img/item.jpeg" alt="уточка">
       </div>
     </div>
   </div>
   <div class="column column6">
   <!-- описание -->
     <p class="item-description">
-    <span class="grey-bold">Резиновая уточка</span> — игрушка в виде утки, как правило, жёлтого цвета. Она может быть сделана из резины или из пенопласта. Жёлтая резиновая уточка стала ассоциироваться с купаньем.
+    <span class="grey-bold">{{ product.title }}</span> — {{ product.description }}
     </p>
     <!-- цена -->
-    <p class="price">99 P</p>
+    <p class="price">{{ product.price }} P</p>
     <div class="order-btns">
       <a href="" class="btn-basket">В Корзину</a>
       <a href="" class="btn-click">Купить в 1 клик</a>

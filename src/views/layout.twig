@@ -3,6 +3,12 @@
 <head>
   	<meta charset="UTF-8">
   	<title>Yellow Duck</title>
+  	<link href="../../css/normalize.css" rel="stylesheet">
+  	<link href="../../css/style.css" rel="stylesheet">
+
+    <link href="../css/normalize.css" rel="stylesheet">
+  	<link href="../css/style.css" rel="stylesheet">
+
   	<link href="css/normalize.css" rel="stylesheet">
   	<link href="css/style.css" rel="stylesheet">
 </head>
@@ -18,13 +24,15 @@
 				<li><a href="#">Каталог</a></li>
 				<li><a href="">Доставка и оплата</a></li>
 				<li><a href="">Контакты</a></li>
+
 			</ul>
 		</nav>
 	</div>
 </header>
 <main>
 	<div class="container">
-		<div class="banner"></div>
+		{% block banner %}
+    {%endblock banner %}
 		<div class="row clearfix">
 			<!-- боковое меню -->
 			<aside class="column column3">
@@ -35,8 +43,8 @@
 				</ul>
 			</aside>
 			<div class="column column9">
-				{% block products %}
-        {% endblock products %}
+				{% block content %}
+        {% endblock content %}
 			</div>
 		</div>
 	</div>
